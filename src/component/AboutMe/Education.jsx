@@ -25,7 +25,7 @@ const Education = () => {
                         National Institute of Textile engineering & Research. <br />
 
                         Currently I am studying B.Sc in CSE at National Institute of Textile Engineering and Research located at Nayarhat, Savar, Dhaka. <br />
-                        CGPA: 3.44</div>
+                        CGPA: 3.47</div>
                     <div className="timeline-middle">
 
                         <img src={niterlogo} alt="niter logo" className="size-8" />
