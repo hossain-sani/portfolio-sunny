@@ -6,9 +6,11 @@ import ContactMe from "./component/ContactMe"
 import MyProject from "./component/MyProject"
 import MySkill from "./component/MySkill"
 import StatsWithGithubConnection from "./component/StatsGithubConnection"
-import Photo from "./component/Photo"
+// import Photo from "./component/Photo"
+import PhotoNew from "./component/PhotoNew"
 // import Stats from "./component/Stats"
 import { motion } from "framer-motion";
+
 
 
 function Home() {
@@ -20,7 +22,8 @@ function Home() {
 
       <div className="container mx-auto  space-y-32  ">
         {/* <Banner></Banner> */}
-        <Photo></Photo>
+        {/* <Photo></Photo> */}
+        <PhotoNew></PhotoNew>
     
         <motion.div
           initial={{ opacity: 0, y: 60 }}

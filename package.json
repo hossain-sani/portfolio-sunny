@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "localforage": "^1.10.0",
@@ -24,6 +26,7 @@
     "react-simple-typewriter": "^5.0.1",
     "react-tsparticles": "^2.12.2",
     "sort-by": "^1.2.0",
+    "three": "^0.186.0",
     "tsparticles": "^3.8.1"
   },
   "devDependencies": {
