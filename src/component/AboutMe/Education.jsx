@@ -3,128 +3,84 @@ import amritalogo from "../../assets/amritalogo1.png"
 import ssclogo from "../../assets/SSClogo.png"
 import { motion } from "framer-motion";
 
+const boxClass =
+  "timeline-box rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:border-white/10 dark:bg-white/5";
+
 const Education = () => {
     return (
         <div>
-
-
             <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical mb-5">
                 <motion.li
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 2,
-                        ease: "easeOut",
-
-                    }}
-                    viewport={{ once: true, amount: 0.2 }} // triggers once when 20% is visible
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.2 }}
                 >
-                    <div className="timeline-start timeline-box  text-left lg:text-right bg-white dark:bg-slate-800 w-auto lg:w-full">2022-present <br />
-                        B.Sc in Computer Science and enginering. <br />
-
-                        National Institute of Textile engineering & Research. <br />
-
-                        Currently I am studying B.Sc in CSE at National Institute of Textile Engineering and Research located at Nayarhat, Savar, Dhaka. <br />
-                        CGPA: 3.47</div>
-                    <div className="timeline-middle">
-
-                        <img src={niterlogo} alt="niter logo" className="size-8" />
+                    <div className={`timeline-start ${boxClass} w-auto text-left lg:w-full lg:text-right`}>
+                        <span className="badge badge-sm bg-gradient-to-r from-cyan-500 to-pink-500 text-white border-0">2022 - Present</span>
+                        <p className="mt-2 font-heading text-lg font-bold">B.Sc in CSE</p>
+                        <p className="text-sm font-semibold text-cyan-600 dark:text-cyan-400">National Institute of Textile Engineering & Research</p>
+                        <p className="mt-2 text-xs leading-relaxed opacity-90">
+                            Currently studying B.Sc in CSE at NITER, located at Nayarhat, Savar, Dhaka.
+                        </p>
+                        <p className="mt-2 text-sm font-bold">CGPA: 3.47</p>
                     </div>
-                    <hr className="bg-primary" />
+                    <div className="timeline-middle">
+                        <div className="flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-pink-500 p-0.5 shadow-lg shadow-pink-500/25">
+                            <img src={niterlogo} alt="niter logo" className="size-8 rounded-full bg-white" />
+                        </div>
+                    </div>
+                    <hr className="bg-gradient-to-r from-cyan-400 to-pink-500" />
                 </motion.li>
-                {/* 2nd */}
+
                 <motion.li
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 2,
-                        ease: "easeOut",
-                        delay: 0.3
-                    }}
-                    viewport={{ once: true, amount: 0.2 }} // triggers once when 20% is visible
+                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.15 }}
+                    viewport={{ once: true, amount: 0.2 }}
                 >
-                    <hr className="bg-primary" />
+                    <hr className="bg-gradient-to-r from-cyan-400 to-pink-500" />
                     <div className="timeline-middle">
-                        <img src={amritalogo} alt="niter logo" className="size-8" />
+                        <div className="flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-pink-500 p-0.5 shadow-lg shadow-pink-500/25">
+                            <img src={amritalogo} alt="amritalal dey college logo" className="size-8 rounded-full bg-white" />
+                        </div>
                     </div>
-                    <div className="timeline-end timeline-box text-left bg-white dark:bg-slate-800 w-auto lg:w-full">
-                        2019-2021 <br />
-                        Higher Secondary School Certificate<br />
-
-                        Amritalal Dey College, Barishal<br />
-
-                        I completed HSC from Amritalal Dey College located at Barishal<br />
-
-                        GPA: 5.00
-
+                    <div className={`timeline-end ${boxClass} w-auto text-left lg:w-full`}>
+                        <span className="badge badge-sm bg-gradient-to-r from-cyan-500 to-pink-500 text-white border-0">2019 - 2021</span>
+                        <p className="mt-2 font-heading text-lg font-bold">Higher Secondary School Certificate</p>
+                        <p className="text-sm font-semibold text-cyan-600 dark:text-cyan-400">Amritalal Dey College, Barishal</p>
+                        <p className="mt-2 text-xs leading-relaxed opacity-90">
+                            I completed HSC from Amritalal Dey College located at Barishal.
+                        </p>
+                        <p className="mt-2 text-sm font-bold">GPA: 5.00</p>
                     </div>
-                    <hr className="bg-primary" />
+                    <hr className="bg-gradient-to-r from-cyan-400 to-pink-500" />
                 </motion.li>
-                {/* 3rd */}
+
                 <motion.li
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 2,
-                        ease: "easeOut",
-                        delay: 0.5
-                    }}
-                    viewport={{ once: true, amount: 0.2 }} // triggers once when 20% is visible
+                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
+                    viewport={{ once: true, amount: 0.2 }}
                 >
-                    <hr className="bg-primary" />
-                    <div className="timeline-start timeline-box text-left lg:text-right bg-white dark:bg-slate-800 w-auto lg:w-full">
-                        2016-2019  <br />
-                        Secondary School Certificate <br />
-
-                        Barguna zilla School <br />
-
-                        I completed SSC from Barguna zilla School located at Barguna <br />
-
-                        GPA: 5.00
-
-
+                    <hr className="bg-gradient-to-r from-cyan-400 to-pink-500" />
+                    <div className={`timeline-start ${boxClass} w-auto text-left lg:w-full lg:text-right`}>
+                        <span className="badge badge-sm bg-gradient-to-r from-cyan-500 to-pink-500 text-white border-0">2016 - 2019</span>
+                        <p className="mt-2 font-heading text-lg font-bold">Secondary School Certificate</p>
+                        <p className="text-sm font-semibold text-cyan-600 dark:text-cyan-400">Barguna Zilla School</p>
+                        <p className="mt-2 text-xs leading-relaxed opacity-90">
+                            I completed SSC from Barguna Zilla School located at Barguna.
+                        </p>
+                        <p className="mt-2 text-sm font-bold">GPA: 5.00</p>
                     </div>
                     <div className="timeline-middle">
-                        <img src={ssclogo} alt="niter logo" className="size-8" />
+                        <div className="flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-pink-500 p-0.5 shadow-lg shadow-pink-500/25">
+                            <img src={ssclogo} alt="barguna zilla school logo" className="size-8 rounded-full bg-white" />
+                        </div>
                     </div>
-                    <hr className="bg-primary" />
+                    <hr className="bg-gradient-to-r from-cyan-400 to-pink-500" />
                 </motion.li>
-                {/* 2nd */}
-                {/* <li>
-                    <hr className="bg-primary" />
-                    <div className="timeline-middle">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="text-primary h-5 w-5"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                    </div>
-                    <div className="timeline-end timeline-box text-left">
-                        2019-2021 <br />
-                        Higher Secondary School Certificate<br />
-
-                        Saydabad Ideal Govt College & University<br />
-
-                        I completed HSC from Saydabad Ideal Govt College & University located at saydabad, kasba, Brahmanbaria.<br />
-
-                        GPA: 5.00
-
-                    </div>
-
-                </li> */}
-
-
-
             </ul>
-
-
         </div>
     );
 };

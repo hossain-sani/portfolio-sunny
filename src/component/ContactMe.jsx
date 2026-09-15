@@ -1,12 +1,75 @@
-// import { BsLinkedin } from "react-icons/bs";
 import React from "react";
 import { BsLinkedin } from "react-icons/bs";
 import { FaGithub, FaMapLocationDot, FaPhoneVolume, FaCode, FaLaptopCode, FaServer, FaDesktop, FaPlug, FaBolt } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
-import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import SectionHeading from "./ui/SectionHeading";
+import GlassCard from "./ui/GlassCard";
+import GradientButton from "./ui/GradientButton";
 
+const infoItems = [
+  {
+    icon: FaPhoneVolume,
+    iconClass: "text-green-600",
+    ring: "from-green-400/40 to-teal-500/40",
+    label: "Phone Number",
+    value: "(+880) 1601707200",
+    note: "(whatsapp)",
+  },
+  {
+    icon: MdEmail,
+    iconClass: "text-yellow-600",
+    ring: "from-yellow-400/40 to-amber-500/40",
+    label: "Email Address",
+    value: "sunnycse03@gmail.com",
+  },
+  {
+    icon: FaMapLocationDot,
+    iconClass: "text-cyan-600 dark:text-cyan-400",
+    ring: "from-cyan-400/40 to-blue-500/40",
+    label: "Location",
+    value: "Nabinagar, Savar, Dhaka",
+  },
+];
+
+const services = [
+  {
+    icon: FaCode,
+    iconClass: "text-blue-500",
+    title: "Full-Stack Development",
+    text: "Building end-to-end web applications using modern technologies.",
+  },
+  {
+    icon: FaLaptopCode,
+    iconClass: "text-green-500",
+    title: "Frontend Development",
+    text: "Crafting engaging and responsive user interfaces with React and modern CSS frameworks.",
+  },
+  {
+    icon: FaServer,
+    iconClass: "text-red-500",
+    title: "Backend Development",
+    text: "Developing robust server-side logic and APIs with Node.js and Express.js.",
+  },
+  {
+    icon: FaDesktop,
+    iconClass: "text-purple-500",
+    title: "Responsive Web Design",
+    text: "Ensuring seamless user experience across all devices and screen sizes.",
+  },
+  {
+    icon: FaPlug,
+    iconClass: "text-orange-500",
+    title: "API Development & Integration",
+    text: "Building and integrating robust APIs for seamless data flow.",
+  },
+  {
+    icon: FaBolt,
+    iconClass: "text-cyan-500",
+    title: "Performance Optimization",
+    text: "Optimizing web applications for speed and efficiency.",
+  },
+];
 
 const ContactMe = () => {
   const [result, setResult] = React.useState("");
@@ -15,12 +78,11 @@ const ContactMe = () => {
     event.preventDefault();
     setResult("Sending....");
     const formData = new FormData(event.target);
-
     formData.append("access_key", "c258c0f4-9700-423f-bc2b-68694d1b3be7");
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      body: formData
+      body: formData,
     });
 
     const data = await response.json();
@@ -34,211 +96,191 @@ const ContactMe = () => {
     }
   };
 
-
-
-
+  const inputClass =
+    "input w-full rounded-xl border border-black/10 bg-white/60 font-sans text-sm text-black focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400/40 dark:border-white/15 dark:bg-white/5 dark:text-white";
 
   return (
-    <div className="text-black dark:text-gray-200 pb-10 ">
-      <div>
-        <h1 className="w-auto  lg:w-[30%] text-2xl lg:text-4xl font-bold text-center mx-auto my-5 border-b-2 border-dashed pb-4 ">
-          Get
-          <span className="bg-gradient-to-r from-cyan-400 to-pink-600 bg-clip-text text-transparent -tracking-wide  "> in Touch</span>
-        </h1>
-      </div>
+    <div className="pb-10 text-black dark:text-gray-200">
+      <SectionHeading
+        eyebrow="Contact"
+        title="Get"
+        highlight="in Touch"
+        sub="Have a project in mind or just want to say hi? My inbox is always open."
+      />
 
-      <div>
-        <div className="border-2 border-gray-700 p-0 lg:p-10 rounded-md w-auto lg:w-[90%] mx-auto mt-14 ">
-          {/* <h1 className="text-xl lg:text-3xl font-bold mb-7">
-            Contact Me For More Info{" "}
-          </h1> */}
-
-
-          <div className="w-full mx-auto  flex flex-col lg:flex-row gap-5 justify-between">
-
-          
-            <motion.div
-              initial={{ opacity: 0, x: -70 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 2.5,
-                ease: "easeOut",
-
-              }}
-              viewport={{ once: true, amount: 0.15 }} // triggers once when 20% is visible
-
-              className="w-full space-y-3 pt-4 ">
-
-              <div className="space-y-0.5 p-4 gap-2 border-2 border-gray-200 rounded-md bg-[#FDDD5F1A] transition-all duration-300 hover:shadow-lg hover:scale-105">
-                <FaPhoneVolume className="text-green-800 size-7 lg:size-11" />
-                <p className="font-thin text-xs lg:text-sm   ">Phone Number :</p>
-                <p className="text-base lg:text-lg">(+880) 1601707200 <span className="font-thin text-xs">(whatsapp)</span></p>
-              </div>
-              <div className="space-y-0.5 p-4 gap-2 border-2 border-gray-200 rounded-md bg-[#2d75222b] transition-all duration-300 hover:shadow-lg hover:scale-105">
-                <MdEmail className="text-yellow-700 size-7 lg:size-11" />
-                <p className="font-thin text-xs lg:text-sm  ">Email :</p>
-                <p className="text-base lg:text-lg" >sunnycse03@gmail.com</p>
-              </div>
-              <div className="space-y-0.5 p-4 gap-2 border-2 border-gray-200 rounded-md bg-[#629CF31A] transition-all duration-300 hover:shadow-lg hover:scale-105">
-                <FaMapLocationDot className="text-black dark:text-gray-300 size-7 lg:size-11" />
-                <p className="font-thin text-xs lg:text-sm  ">Location :</p>
-                <p className="text-base lg:text-lg">Nabinagar, Savar, Dhaka</p>
-              </div>
-
-
-              <div className=" pt-3 flex justify-center gap-6">
-                <Link to="https://linkedin.com/in/hossainsani/">
-                  {" "}
-                  <BsLinkedin className="size-4 lg:size-8 text-[#0A66C2] bg-white rounded" />{" "}
-                </Link>
-                <Link to="https://github.com/hossain-sani">
-                  {" "}
-                  <FaGithub className="size-4 lg:size-8" />{" "}
-                </Link>
-              </div>
-              <p className="font-mono text-sm flex justify-center tracking-[.35em]">Connect with me </p>
-            </motion.div>
-
-            {/* contact for */}
-            <motion.div
-              initial={{ opacity: 0, x: 70 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 2.5,
-                ease: "easeOut",
-
-              }}
-              viewport={{ once: true, amount: 0.15 }} // triggers once when 20% is visible
-
-              className="w-full  border-t-4 rounded-3xl border-red-900  p-3">
-              <div className="hero  text-black">
-                <div className="card bg-base-200 w-full shrink-0 shadow-2xl">
-
-
-                  <form onSubmit={onSubmit} className="card-body ">
-                    <h1 className="text-3xl lg:text-4xl mb-10 text-black ">Send Message</h1>
-                    <div className="form-control  mb-2.5 text-black ">
-                      <label className="label">
-                        <span className="label-text text-sm lg:text-md text-sky-600 ">Full Name : </span>
-                      </label>
-                      <label className="floating-label mt-2  ">
-                        <span >Name</span>
-                        <input type="text" name="name" placeholder="type your name" className="input w-full  border-b-4 focus:outline-none " required />
-                      </label>
-                    </div>
-
-                    <div className="form-control mb-2.5 text-black  ">
-                      <label className="label">
-                        <span className="label-text text-md text-sky-600 ">Email Address : </span>
-                      </label>
-                      <label className="floating-label mt-2 ">
-                        <span className=" ">Your Mail</span>
-                        <input type="text" name="email" placeholder="mail@site.com" className="input  border-b-4 w-full focus:outline-none " required />
-                      </label>
-                    </div>
-
-                    <div className="form-control mb-4 text-black ">
-                      <label className="label">
-                        <span className="label-text text-md text-sky-600 ">Your Message : </span>
-                      </label>
-                      <label className="floating-label mt-2  ">
-                        <span >message</span>
-                        <textarea
-                          rows="4"
-                          name="message"
-                          placeholder="Type your text here..."
-                          className="textarea textarea-bordered border-b-4  w-full focus:outline-none " required
-                        ></textarea>
-                        {/* <input type="text" placeholder="type your message" className="textarea h-36 input input-lg focus:outline-none " /> */}
-                      </label>
-                    </div>
-                    <div className="form-control">
-                      <button type="submit" className="btn btn-primary">send</button>
-                    </div>
-                  </form>
-                  <span>{result}</span>
+      <div className="mt-14 mx-auto w-full lg:w-[92%]">
+        <GlassCard innerClassName="grid grid-cols-1 gap-10 p-6 lg:grid-cols-2 lg:p-12">
+          {/* left — info */}
+          <motion.div
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+            className="flex flex-col justify-center space-y-4"
+          >
+            {infoItems.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={i}
+                  className={`flex items-start gap-4 rounded-2xl border border-white/40 bg-white/50 p-5 shadow-md shadow-black/5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/10 dark:border-white/10 dark:bg-white/5`}
+                >
+                  <div
+                    className={`flex size-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.ring} ${item.iconClass}`}
+                  >
+                    <Icon className="size-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-black/50 dark:text-gray-400">{item.label}</p>
+                    <p className="font-semibold text-black dark:text-white">
+                      {item.value}{" "}
+                      {item.note && (
+                        <span className="text-xs font-thin italic text-black/40 dark:text-gray-400">
+                          {item.note}
+                        </span>
+                      )}
+                    </p>
+                  </div>
                 </div>
+              );
+            })}
+
+            <div className="flex items-center justify-center gap-4 pt-3">
+              <a
+                href="https://linkedin.com/in/hossainsani/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="flex size-11 items-center justify-center rounded-full border border-white/40 bg-white/50 text-[#0A66C2] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-pink-400 hover:shadow-lg hover:shadow-pink-500/20 dark:border-white/10 dark:bg-white/5"
+              >
+                <BsLinkedin className="size-5" />
+              </a>
+              <a
+                href="https://github.com/hossain-sani"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="flex size-11 items-center justify-center rounded-full border border-white/40 bg-white/50 text-black backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-pink-400 hover:shadow-lg hover:shadow-pink-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white"
+              >
+                <FaGithub className="size-5" />
+              </a>
+            </div>
+            <p className="text-center font-mono text-xs tracking-[0.35em] text-black/50 dark:text-gray-400">
+              CONNECT WITH ME
+            </p>
+          </motion.div>
+
+          {/* right — form */}
+          <motion.div
+            initial={{ opacity: 0, x: 70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <h3 className="font-heading text-2xl font-bold text-black dark:text-white lg:text-3xl">
+              Send <span className="gradient-text">Message</span>
+            </h3>
+            <form onSubmit={onSubmit} className="mt-6 space-y-5">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Type your name"
+                  className={inputClass}
+                  required
+                />
               </div>
-            </motion.div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+                  Email Address
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="mail@site.com"
+                  className={inputClass}
+                  required
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+                  Your Message
+                </label>
+                <textarea
+                  rows="4"
+                  name="message"
+                  placeholder="Type your text here..."
+                  className="textarea w-full rounded-xl border border-black/10 bg-white/60 font-sans text-sm text-black focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400/40 dark:border-white/15 dark:bg-white/5 dark:text-white"
+                  required
+                />
+              </div>
 
+              <div className="flex flex-col items-start gap-3">
+                <GradientButton type="submit" className="w-full">
+                  Send Message
+                </GradientButton>
+              </div>
 
-
-          </div>
-        </div>
+              {result && (
+                <div
+                  className={`w-full rounded-xl border px-4 py-3 text-sm font-semibold backdrop-blur-xl ${
+                    result === "Sending...."
+                      ? "border-blue-400/40 bg-blue-400/10 text-blue-500"
+                      : result === "Form Submitted Successfully"
+                      ? "border-green-400/40 bg-green-400/10 text-green-600"
+                      : "border-red-400/40 bg-red-400/10 text-red-500"
+                  }`}
+                >
+                  {result === "Sending...." ? (
+                    <span className="flex items-center gap-2">
+                      <span className="size-4 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
+                      Sending...
+                    </span>
+                  ) : (
+                    result
+                  )}
+                </div>
+              )}
+            </form>
+          </motion.div>
+        </GlassCard>
       </div>
 
-      {/* Service Offerings Section */}
-      <div className="mt-20">
-        <h1 className="w-auto lg:w-[30%] text-2xl lg:text-4xl font-bold text-center mx-auto my-5 border-b-2 border-dashed pb-4 ">
-          My
-          <span className="bg-gradient-to-r from-cyan-400 to-pink-600 bg-clip-text text-transparent -tracking-wide  "> Services</span>
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center p-6 rounded-lg bg-white dark:bg-slate-800 shadow-lg text-center border-2 border-transparent transition-all duration-300 hover:border-cyan-400"
-          >
-            <FaCode className="text-5xl text-blue-500 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Full-Stack Development</h3>
-            <p className="text-sm">Building end-to-end web applications using modern technologies.</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center p-6 rounded-lg bg-white dark:bg-slate-800 shadow-lg text-center border-2 border-transparent transition-all duration-300 hover:border-cyan-400"
-          >
-            <FaLaptopCode className="text-5xl text-green-500 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Frontend Development</h3>
-            <p className="text-sm">Crafting engaging and responsive user interfaces with React and modern CSS frameworks.</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center p-6 rounded-lg bg-white dark:bg-slate-800 shadow-lg text-center border-2 border-transparent transition-all duration-300 hover:border-cyan-400"
-          >
-            <FaServer className="text-5xl text-red-500 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Backend Development</h3>
-            <p className="text-sm">Developing robust server-side logic and APIs with Node.js and Express.js.</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center p-6 rounded-lg bg-white dark:bg-slate-800 shadow-lg text-center border-2 border-transparent transition-all duration-300 hover:border-cyan-400"
-          >
-            <FaDesktop className="text-5xl text-purple-500 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Responsive Web Design</h3>
-            <p className="text-sm">Ensuring seamless user experience across all devices and screen sizes.</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center p-6 rounded-lg bg-white dark:bg-slate-800 shadow-lg text-center border-2 border-transparent transition-all duration-300 hover:border-cyan-400"
-          >
-            <FaPlug className="text-5xl text-orange-500 mb-4" />
-            <h3 className="text-xl font-bold mb-2">API Development & Integration</h3>
-            <p className="text-sm">Building and integrating robust APIs for seamless data flow.</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-            viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center p-6 rounded-lg bg-white dark:bg-slate-800 shadow-lg text-center border-2 border-transparent transition-all duration-300 hover:border-cyan-400">
-            <FaBolt className="text-5xl text-cyan-500 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Performance Optimization</h3>
-            <p className="text-sm">Optimizing web applications for speed and efficiency.</p>
-          </motion.div>
+      {/* Services Section */}
+      <div className="mt-24">
+        <SectionHeading
+          eyebrow="What I Do"
+          title="My"
+          highlight="Services"
+        />
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <GlassCard
+                key={index}
+                className="text-center"
+                innerClassName="p-8"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.08 }}
+                viewport={{ once: true, amount: 0.25 }}
+              >
+                <div className={`text-5xl ${service.iconClass}`}>
+                  <Icon />
+                </div>
+                <h3 className="mt-4 font-heading text-lg font-bold text-black dark:text-white lg:text-xl">
+                  {service.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-black/60 dark:text-gray-300">
+                  {service.text}
+                </p>
+              </GlassCard>
+            );
+          })}
         </div>
       </div>
     </div>

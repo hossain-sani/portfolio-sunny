@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +10,24 @@
 }
 .text-outline-hover{
   -webkit-text-stroke: 1px #055535;
+}
+
+/* ---- shared utilities (design kit) ---- */
+.gradient-text {
+  @apply bg-gradient-to-r from-cyan-400 via-pink-500 to-cyan-400 bg-clip-text text-transparent;
+}
+
+.section-underline {
+  @apply block h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-pink-500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @font-face {

@@ -1,17 +1,29 @@
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
+import {
+  FaCodeBranch,
+  FaRocket,
+  FaLayerGroup,
+  FaAward,
+} from "react-icons/fa6";
+import GlassCard from "./ui/GlassCard";
+import SectionHeading from "./ui/SectionHeading";
+
+const STAT_META = {
+  0: { icon: FaAward, gradient: "from-cyan-400 to-blue-500", glow: "shadow-cyan-500/20" },
+  1: { icon: FaRocket, gradient: "from-pink-500 to-rose-500", glow: "shadow-pink-500/20" },
+  2: { icon: FaCodeBranch, gradient: "from-green-400 to-emerald-500", glow: "shadow-green-500/20" },
+  3: { icon: FaLayerGroup, gradient: "from-purple-500 to-indigo-500", glow: "shadow-purple-500/20" },
+};
 
 const Stats = () => {
   const [repoCount, setRepoCount] = useState(0);
   const [totalCommits, setTotalCommits] = useState(0);
   const [techCount, setTechCount] = useState(0);
 
+  const username = import.meta.env.VITE_Github_Uername;
+  const token = import.meta.env.VITE_Github_Access_Token;
 
-
-  const username = import.meta.env.VITE_Github_Uername 
-  const token = import.meta.env.VITE_Github_Access_Token
-
-  
   useEffect(() => {
     const fetchGitHubStats = async () => {
       const query = `
@@ -59,15 +71,12 @@ const Stats = () => {
 
         const repos = json?.data?.user?.repositories?.nodes || [];
 
-        // Total commits calculation with null checks
-        const totalCommits = repos.reduce((acc, repo) => {
-          return (
-            acc +
-            (repo?.defaultBranchRef?.target?.history?.totalCount || 0)
-          );
-        }, 0);
+        const commits = repos.reduce(
+          (acc, repo) =>
+            acc + (repo?.defaultBranchRef?.target?.history?.totalCount || 0),
+          0
+        );
 
-        // Collect unique languages safely
         const languageSet = new Set();
         repos.forEach((repo) => {
           const langs = repo?.languages?.nodes || [];
@@ -77,7 +86,7 @@ const Stats = () => {
         });
 
         setRepoCount(json.data.user.repositories.totalCount);
-        setTotalCommits(totalCommits);
+        setTotalCommits(commits);
         setTechCount(languageSet.size);
       } catch (error) {
         console.error("Fetch failed:", error);
@@ -89,28 +98,50 @@ const Stats = () => {
 
   const stats = [
     { num: 1, text: "Years of Experience" },
-    { num: repoCount, text: "Project Complete" },
-    { num: techCount, text: "Technologies mastered" },
-    { num: totalCommits, text: "GitHub commits" },
+    { num: repoCount, text: "Projects Completed" },
+    { num: techCount, text: "Technologies Mastered" },
+    { num: totalCommits, text: "GitHub Commits" },
   ];
 
   return (
-    <div className="my-20 text-center w-full mx-auto">
-      <div className="stats w-full bg-white dark:bg-[#030014] text-black dark:text-white stats-vertical lg:stats-horizontal shadow">
-        {stats.map((item, index) => (
-          <div key={index} className="stat">
-            <CountUp
-              end={item.num}
-              duration={3}
-              delay={1}
-              className="stat-value text-4xl lg:text-6xl mb-3 text-outline dark:text-transparent"
-              suffix="+"
-            />
-            <div className="stat-title text-black dark:text-white text-lg lg:text-2xl font-extrabold -tracking-wider">
-              {item.text}
-            </div>
-          </div>
-        ))}
+    <div className="mx-auto w-full py-4">
+      <SectionHeading
+        eyebrow="The Numbers"
+        title="Milestones That"
+        highlight="Matter"
+      />
+      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((item, index) => {
+          const meta = STAT_META[index] || STAT_META[0];
+          const Icon = meta.icon;
+          return (
+            <GlassCard
+              key={index}
+              className="text-center"
+              innerClassName="p-6"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
+            >
+              <div
+                className={`mx-auto flex size-12 items-center justify-center rounded-full bg-gradient-to-br ${meta.gradient} text-white shadow-lg ${meta.glow}`}
+              >
+                <Icon className="text-lg" />
+              </div>
+              <CountUp
+                end={item.num}
+                duration={2.5}
+                delay={0.3}
+                suffix="+"
+                className={`mt-4 block bg-gradient-to-r ${meta.gradient} bg-clip-text text-4xl font-extrabold text-transparent lg:text-5xl`}
+              />
+              <p className="mt-2 text-sm font-semibold tracking-wide text-black/60 lg:text-base dark:text-gray-300">
+                {item.text}
+              </p>
+            </GlassCard>
+          );
+        })}
       </div>
     </div>
   );

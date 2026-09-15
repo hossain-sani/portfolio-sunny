@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         sans: "JetBrains Mono, system-ui, sans-serif",
+        heading: '"Space Grotesk", JetBrains Mono, system-ui, sans-serif',
       },
       keyframes: {
         gradient: {
