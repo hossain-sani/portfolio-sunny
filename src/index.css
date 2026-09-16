@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --nav-width: 20rem;
+}
+
 
 .text-outline{
   -webkit-text-stroke: 1px #ffffff;
