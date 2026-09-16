@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import PropTypes from "prop-types";
@@ -35,7 +35,7 @@ const RESUME_HREF = "/Front-End Developer Resume Of Sani.pdf";
 
 const MIN_WIDTH = 90;
 const MAX_WIDTH = 440;
-const DEFAULT_WIDTH = 205;
+const DEFAULT_WIDTH = 215;
 const COMPACT_THRESHOLD = 190;
 
 const getInitialWidth = () => {
@@ -337,9 +337,12 @@ const SideNavbar = () => {
   const [width, setWidth] = useState(getInitialWidth);
   const [hintVisible, setHintVisible] = useState(false);
   const [hintShown, setHintShown] = useState(
-    () => localStorage.getItem("nav-resize-hint-dismissed") === "1"
+    () => localStorage.getItem("nav-resize-interacted") === "1"
   );
   const isCompact = width < COMPACT_THRESHOLD;
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const draggingRef = useRef(false);
+  const hoverTimer = useRef(null);
   const close = () => setOpen(false);
 
   useEffect(() => {
@@ -348,13 +351,13 @@ const SideNavbar = () => {
   }, [width]);
 
   useEffect(() => {
+    return () => clearTimeout(hoverTimer.current);
+  }, []);
+
+  useEffect(() => {
     if (hintShown) return;
     const showTimer = setTimeout(() => setHintVisible(true), 1500);
-    const hideTimer = setTimeout(() => {
-      setHintVisible(false);
-      setHintShown(true);
-      localStorage.setItem("nav-resize-hint-dismissed", "1");
-    }, 6500);
+    const hideTimer = setTimeout(() => setHintVisible(false), 6500);
     return () => {
       clearTimeout(showTimer);
       clearTimeout(hideTimer);
@@ -374,17 +377,35 @@ const SideNavbar = () => {
   const dismissHint = () => {
     setHintVisible(false);
     setHintShown(true);
-    localStorage.setItem("nav-resize-hint-dismissed", "1");
+    localStorage.setItem("nav-resize-interacted", "1");
+  };
+
+  const scheduleTooltip = () => {
+    clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => {
+      if (!draggingRef.current) setTooltipVisible(true);
+    }, 600);
+  };
+
+  const hideTooltip = () => {
+    clearTimeout(hoverTimer.current);
+    if (!draggingRef.current) setTooltipVisible(false);
   };
 
   const startResize = (e) => {
     e.preventDefault();
     dismissHint();
+    draggingRef.current = true;
+    clearTimeout(hoverTimer.current);
+    setTooltipVisible(true);
     const onMove = (ev) => {
       const next = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, ev.clientX));
       setWidth(next);
     };
     const onUp = () => {
+      draggingRef.current = false;
+      clearTimeout(hoverTimer.current);
+      setTooltipVisible(false);
       document.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerup", onUp);
       document.body.style.cursor = "";
@@ -408,8 +429,9 @@ const SideNavbar = () => {
         <motion.button
           type="button"
           aria-label="Resize sidebar"
-          title="Drag to resize"
           onPointerDown={startResize}
+          onPointerEnter={scheduleTooltip}
+          onPointerLeave={hideTooltip}
           animate={hintVisible ? { x: [0, -4, 4, -3, 3, 0] } : { x: 0 }}
           transition={{
             duration: 0.9,
@@ -447,6 +469,36 @@ const SideNavbar = () => {
                 <FaArrowRightArrowLeft className="text-xs" />
                 Drag to resize
               </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ---------- delayed hover tooltip ---------- */}
+        <AnimatePresence>
+          {tooltipVisible && (
+            <motion.div
+              className="pointer-events-none absolute top-1/2 left-full z-50 ml-2 -translate-y-1/2"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              <span className="absolute top-1/2 -left-1 h-2 w-2 -translate-y-1/2 rotate-45 border-b border-l border-amber-400/40 bg-[#08040a]" />
+              <div className="rounded-xl border border-amber-400/40 bg-[#08040a]/95 px-3 py-2 shadow-[0_0_20px_rgba(251,191,36,0.35)]">
+                <div className="flex items-baseline gap-2 whitespace-nowrap">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300">
+                    {isCompact ? "Compact rail" : "Full layout"}
+                  </span>
+                  <span className="font-mono text-sm font-semibold tabular-nums text-white">
+                    {Math.round(width)}px
+                  </span>
+                </div>
+                {isCompact && (
+                  <p className="mt-1 whitespace-nowrap text-[10px] font-medium uppercase tracking-wider text-white/45">
+                    name, subtitle, clock, 3D hidden
+                  </p>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
