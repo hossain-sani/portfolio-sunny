@@ -3,23 +3,31 @@ import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
     const [isDark, setIsDark] = useState(() => {
-        return localStorage.getItem("theme") === "dark";
+        const stored = localStorage.getItem("theme-v2");
+        if (stored === null) {
+            localStorage.removeItem("theme");
+            return true;
+        }
+        return stored === "dark";
     });
 
     useEffect(() => {
         const html = document.documentElement;
         if (isDark) {
             html.classList.add("dark");
-            localStorage.setItem("theme", "dark");
+            html.setAttribute("data-theme", "dark");
         } else {
             html.classList.remove("dark");
-            localStorage.setItem("theme", "light");
+            html.setAttribute("data-theme", "light");
         }
     }, [isDark]);
 
     const handleToggle = () => {
-        setIsDark(!isDark);
-        console.log("Store Theme: ", isDark);
+        setIsDark((prev) => {
+            const next = !prev;
+            localStorage.setItem("theme-v2", next ? "dark" : "light");
+            return next;
+        });
     };
 
     return (
@@ -28,7 +36,7 @@ const ThemeToggle = () => {
                 type="checkbox"
                 onChange={handleToggle}
                 checked={isDark}
-                value="synthwave"
+                value="dark"
                 className="theme-controller "
             />
             <svg
